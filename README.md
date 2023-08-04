@@ -1,6 +1,17 @@
+<p align="center">
+  <img src="https://github.com/faraguti/Terraform-Website-S3/assets/5418256/6db52534-33ee-4edd-99ef-db5468e7390d" height="100%" width="100%">
+</p>
+
 # Cloud Database Deployment with Terraform on GCP
 
 This Terraform project demonstrates how to deploy MySQL and PostgreSQL database instances on Google Cloud Platform (GCP). Each section below explains the different components and steps involved.
+
+## Table of Contents
+
+- [MySQL Instance Deployment](#mysql-instance-deployment)
+- [PostgreSQL Instance Deployment](#postgresql-instance-deployment)
+- [Usage](#usage)
+- [Notes](#notes)
 
 ## MySQL Instance Deployment
 
