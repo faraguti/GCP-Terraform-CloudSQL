@@ -29,7 +29,7 @@ In the following block, a Google Cloud SQL instance for MySQL is defined using t
 - Deletion Protection: `false`
 - Instance Tier: `db-f1-micro`
 
-**Instance Block**
+**MySQL Instance Block**
 ```
 resource "google_sql_database_instance" "mysql_instance_1" {
   name             = "mysql-goncalves-development-db1-instance"
