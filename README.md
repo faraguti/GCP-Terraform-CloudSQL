@@ -53,11 +53,10 @@ resource "google_sql_database_instance" "mysql_instance_1" {
 
 > [!IMPORTANT]  
 > In real-world scenarios, you should always restrict access by providing a list of trusted IP addresses, subnets, or using other methods like Cloud VPN or Cloud Identity-Aware Proxy (IAP) to ensure that only authorized entities can connect to your databases.
+>
+> Make sure to follow best practices for managing secrets, such as using environment variables or external secret management tools. Storing sensitive data like passwords directly in code can lead to security vulnerabilities.
 
-- Make sure to follow best practices for managing secrets, such as using environment variables or external secret management tools. Storing sensitive data like passwords directly in code can lead to security vulnerabilities.
-
-
-
+<br></br>
 ### Step 3: MySQL Database Creation
 
 The `google_sql_database` resource defines a MySQL database (`mysql-goncalves-development-db1`) within the previously created instance.
