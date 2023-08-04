@@ -14,7 +14,6 @@ This Terraform project demonstrates how to deploy MySQL and PostgreSQL database 
 - [Notes](#notes)
 
 ## MySQL Instance Deployment
-<br></br>
 ### Step 1: Provider Configuration
 
 The `provider.tf` file configures the Google Cloud provider settings for the project, including the project ID, region, and zone.
