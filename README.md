@@ -13,7 +13,7 @@ This Terraform project demonstrates how to deploy MySQL and PostgreSQL database 
 - [Usage](#usage)
 
 ## MySQL Instance Deployment
-### Step 1: Provider Configuration
+## Step 1: Provider Configuration
 
 The `provider.tf` file configures the Google Cloud provider settings for the project, including the project ID, region, and zone.
 - `project`: Your Google Cloud project ID.
@@ -37,7 +37,7 @@ provider "google" {
 }
 ```
 <br></br>
-### Step 2: MySQL Instance Setup
+## Step 2: MySQL Instance Setup
 
 In the following block, a Google Cloud SQL instance for MySQL is defined using the `google_sql_database_instance` resource. Key settings include:
 
@@ -75,7 +75,7 @@ resource "google_sql_database_instance" "mysql_instance_1" {
 > **Make sure to follow best practices for managing secrets, such as using environment variables or external secret management tools. Storing sensitive data like passwords directly in code can lead to security vulnerabilities.**
 
 <br></br>
-### Step 3: MySQL Database Creation
+## Step 3: MySQL Database Creation
 
 The `google_sql_database` resource defines a MySQL database (`mysql-faraguti-development-db1`) within the previously created instance.
 ```
@@ -86,7 +86,7 @@ resource "google_sql_database" "mysql_database_1" {
 ```
 
 <br></br>
-### Step 4: MySQL User Setup
+## Step 4: MySQL User Setup
 
 A MySQL user named `mysql-development-user` is created using the `google_sql_user` resource, associated with the MySQL instance. The user is given the password `password` for database access.
 ```
@@ -99,7 +99,7 @@ resource "google_sql_user" "user1" {
 
 <br></br>
 ## PostgreSQL Instance Deployment
-### Step 1: Provider Configuration
+## Step 1: Provider Configuration
 
 Similar to MySQL, the `provider.tf` file configures the Google Cloud provider settings for the PostgreSQL section.
 The `provider.tf` file configures the Google Cloud provider settings for the project, including the project ID, region, and zone.
@@ -125,7 +125,7 @@ provider "google" {
 ```
 
 <br></br>
-### Step 2: PostgreSQL Instance Setup
+## Step 2: PostgreSQL Instance Setup
 
 In this section, a Google Cloud SQL instance for PostgreSQL is defined using the `google_sql_database_instance` resource. Key settings include:
 
@@ -161,7 +161,7 @@ resource "google_sql_database_instance" "postgres_instance_1" {
 > **Make sure to follow best practices for managing secrets, such as using environment variables or external secret management tools. Storing sensitive data like passwords directly in code can lead to security vulnerabilities.**
 
 <br></br>
-### Step 3: PostgreSQL Database Creation
+## Step 3: PostgreSQL Database Creation
 
 The `google_sql_database` resource defines a PostgreSQL database (`postgres-faraguti-development-db1`) within the created instance.
 ```
@@ -172,7 +172,7 @@ resource "google_sql_database" "postgres_database_1" {
 ```
 
 <br></br>
-### Step 4: PostgreSQL User Setup
+## Step 4: PostgreSQL User Setup
 
 A PostgreSQL user named `postgres-development-user` is created using the `google_sql_user` resource, associated with the PostgreSQL instance. The user is assigned the password `password` for database access.
 ```
