@@ -171,7 +171,7 @@ resource "google_sql_database" "postgres_database_1" {
 }
 ```
 
-</br>
+<br></br>
 ### Step 4: PostgreSQL User Setup
 
 A PostgreSQL user named `postgres-development-user` is created using the `google_sql_user` resource, associated with the PostgreSQL instance. The user is assigned the password `password` for database access.
