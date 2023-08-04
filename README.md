@@ -42,11 +42,21 @@ resource "google_sql_database_instance" "mysql_instance_1" {
         authorized_networks {
             name            = "Allowed Network"
             value           = "0.0.0.0/0"
+            }
         }
     }
 }
-}
+
 ```
+
+- The `authorized_networks` setting in the instance configurations allows you to specify which IP addresses are allowed to connect to your database instances. In the provided code, `0.0.0.0/0` is used to allow connections from any IP address. This is often convenient for testing and initial setup, but **extremely insecure for production environments**. It essentially means any IP can potentially access your database.
+
+> [!IMPORTANT]  
+> In real-world scenarios, you should always restrict access by providing a list of trusted IP addresses, subnets, or using other methods like Cloud VPN or Cloud Identity-Aware Proxy (IAP) to ensure that only authorized entities can connect to your databases.
+
+- Make sure to follow best practices for managing secrets, such as using environment variables or external secret management tools. Storing sensitive data like passwords directly in code can lead to security vulnerabilities.
+
+
 
 ### Step 3: MySQL Database Creation
 
