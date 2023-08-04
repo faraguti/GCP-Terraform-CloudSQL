@@ -11,7 +11,6 @@ This Terraform project demonstrates how to deploy MySQL and PostgreSQL database 
 - [MySQL Instance Deployment](#mysql-instance-deployment)
 - [PostgreSQL Instance Deployment](#postgresql-instance-deployment)
 - [Usage](#usage)
-- [Notes](#notes)
 
 ## MySQL Instance Deployment
 ### Step 1: Provider Configuration
@@ -51,7 +50,7 @@ In the following block, a Google Cloud SQL instance for MySQL is defined using t
 **MySQL Instance Block**
 ```
 resource "google_sql_database_instance" "mysql_instance_1" {
-  name             = "mysql-goncalves-development-db1-instance"
+  name             = "mysql-faraguti-development-db1-instance"
   region           = "us-central1"
   database_version = "MYSQL_8_0"
   deletion_protection  = "false"
@@ -78,18 +77,54 @@ resource "google_sql_database_instance" "mysql_instance_1" {
 <br></br>
 ### Step 3: MySQL Database Creation
 
-The `google_sql_database` resource defines a MySQL database (`mysql-goncalves-development-db1`) within the previously created instance.
+The `google_sql_database` resource defines a MySQL database (`mysql-faraguti-development-db1`) within the previously created instance.
+```
+resource "google_sql_database" "mysql_database_1" {
+  name     = "mysql-faraguti-development-db1"
+  instance = google_sql_database_instance.mysql_instance_1.name
+}
+```
 
+<br></br>
 ### Step 4: MySQL User Setup
 
 A MySQL user named `mysql-development-user` is created using the `google_sql_user` resource, associated with the MySQL instance. The user is given the password `password` for database access.
+```
+resource "google_sql_user" "user1" {
+  name     = "mysql-development-user"
+  instance = google_sql_database_instance.mysql_instance_1.name
+  password = "password"
+}
+```
 
+<br></br>
 ## PostgreSQL Instance Deployment
-
 ### Step 1: Provider Configuration
 
 Similar to MySQL, the `provider.tf` file configures the Google Cloud provider settings for the PostgreSQL section.
+The `provider.tf` file configures the Google Cloud provider settings for the project, including the project ID, region, and zone.
+- `project`: Your Google Cloud project ID.
+- `region`: Your desired Google Cloud region.
+- `zone`: Your desired Google Cloud zone.
 
+```
+terraform {
+  required_providers {
+    google = {
+      source = "hashicorp/google"
+      version = "4.76.0"
+    }
+  }
+}
+
+provider "google" {
+  project = "felipe-faraguti"
+  region  = "us-west1"
+  zone    = "us-west1-a"
+}
+```
+
+<br></br>
 ### Step 2: PostgreSQL Instance Setup
 
 In this section, a Google Cloud SQL instance for PostgreSQL is defined using the `google_sql_database_instance` resource. Key settings include:
@@ -100,14 +135,49 @@ In this section, a Google Cloud SQL instance for PostgreSQL is defined using the
 - Deletion Protection: `false`
 - Instance Tier: `db-f1-micro`
 
+**PostgreSQL Instance Block**
+```
+resource "google_sql_database_instance" "postgres_instance_1" {
+  name             = "postgres-faraguti-development-db1-instance"
+  region           = "us-central1"
+  database_version = "POSTGRES_15"
+  deletion_protection  = "false"
+  settings {
+    tier = "db-f1-micro"
+    ip_configuration {
+        authorized_networks {
+            name            = "Allowed Network"
+            value           = "0.0.0.0/0"
+            }
+        }
+    }
+}
+```
+
+<br></br>
 ### Step 3: PostgreSQL Database Creation
 
-The `google_sql_database` resource defines a PostgreSQL database (`postgres-goncalves-development-db1`) within the created instance.
+The `google_sql_database` resource defines a PostgreSQL database (`postgres-faraguti-development-db1`) within the created instance.
+```
+resource "google_sql_database" "postgres_database_1" {
+  name     = "postgres-faraguti-development-db1"
+  instance = google_sql_database_instance.postgres_instance_1.name
+}
+```
 
+<br></br>
 ### Step 4: PostgreSQL User Setup
 
 A PostgreSQL user named `postgres-development-user` is created using the `google_sql_user` resource, associated with the PostgreSQL instance. The user is assigned the password `password` for database access.
+```
+resource "google_sql_user" "userpg1" {
+  name     = "postgres-development-user"
+  instance = google_sql_database_instance.postgres_instance_1.name
+  password = "password"
+}
+```
 
+<br></br>
 ## Usage
 
 1. Clone the repository and navigate into it.
@@ -117,8 +187,4 @@ A PostgreSQL user named `postgres-development-user` is created using the `google
 5. Run `terraform apply` to deploy the database instances.
 6. Access the databases using the created users.
 
-## Notes
-
-- The `authorized_networks` setting allows connections from any IP address. Adjust this for security.
-- Make sure to follow best practices for managing secrets, such as using environment variables or external secret management tools.
 
