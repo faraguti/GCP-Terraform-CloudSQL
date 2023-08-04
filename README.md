@@ -29,6 +29,25 @@ In the following block, a Google Cloud SQL instance for MySQL is defined using t
 - Deletion Protection: `false`
 - Instance Tier: `db-f1-micro`
 
+**Instance Block**
+```
+resource "google_sql_database_instance" "mysql_instance_1" {
+  name             = "mysql-goncalves-development-db1-instance"
+  region           = "us-central1"
+  database_version = "MYSQL_8_0"
+  deletion_protection  = "false"
+  settings {
+    tier = "db-f1-micro"
+    ip_configuration {
+        authorized_networks {
+            name            = "Allowed Network"
+            value           = "0.0.0.0/0"
+        }
+    }
+}
+}
+```
+
 ### Step 3: MySQL Database Creation
 
 The `google_sql_database` resource defines a MySQL database (`mysql-goncalves-development-db1`) within the previously created instance.
